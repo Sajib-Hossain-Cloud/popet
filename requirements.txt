@@ -1,0 +1,15 @@
+# Needed for all experiments, tables and figures
+numpy>=1.24
+scipy>=1.10
+torch>=2.0
+torchvision>=0.15
+dp-accounting>=0.4.3
+certifi>=2024.0
+matplotlib>=3.7
+
+# Needed only to prepare the StackOverflow data (scripts/preprocess_stackoverflow.py)
+# tensorflow>=2.15
+
+# Needed only for the transformer runs (experiments/step20_mechanism_arm.py)
+# transformers
+# peft
