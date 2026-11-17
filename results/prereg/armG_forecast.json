@@ -1,0 +1,124 @@
+{
+ "decision_criteria": {
+  "level": {
+   "CONFIRM": "observed mean log eps_final inside ci_log_eps for that target and k",
+   "MISS": "outside the CI; report as a systematic level deviation (itself a boundary-of-validity result), NOT re-fit"
+  },
+  "overall": "Arm G is UPSIDE, not foundation: the paper's claims stand on the framework + the in-hand 70/160/410M triptych regardless of this forecast's outcome. A clean non-monotone level with honest CIs is an acceptable and interesting result.",
+  "structural": {
+   "ATTENUATE": "beta in [0.20, 0.35) (LSTM-like deformation) with H monotone in log(T/k)",
+   "CONFIRM": "per-arm fitted slope beta in [0.35, 0.65] AND both k-point H within confirm_band",
+   "FAIL": "beta < 0.20 or non-monotone H or H outside 2x the confirm_band"
+  }
+ },
+ "level": {
+  "pythia-1b": {
+   "k1": {
+    "ci_eps": [
+     0.27,
+     3.97
+    ],
+    "ci_log_eps": [
+     -1.324,
+     1.379
+    ],
+    "confidence": "moderate",
+    "note": "Pythia-1B: same family, one rung past ladder; level explicitly NOT assumed monotone in scale",
+    "observed_ladder_log_eps": {
+     "160M": -0.03,
+     "410M": 0.576,
+     "70M": -0.462
+    },
+    "point_eps": 1.03,
+    "point_log_eps": 0.028
+   },
+   "k5": {
+    "ci_eps": [
+     1.43,
+     11.28
+    ],
+    "ci_log_eps": [
+     0.359,
+     2.423
+    ],
+    "confidence": "moderate",
+    "note": "Pythia-1B: same family, one rung past ladder; level explicitly NOT assumed monotone in scale",
+    "observed_ladder_log_eps": {
+     "160M": 1.059,
+     "410M": 1.71,
+     "70M": 1.405
+    },
+    "point_eps": 4.02,
+    "point_log_eps": 1.391
+   }
+  },
+  "qwen2.5-0.5b": {
+   "k1": {
+    "ci_eps": [
+     0.1,
+     10.8
+    ],
+    "ci_log_eps": [
+     -2.324,
+     2.379
+    ],
+    "confidence": "low (cross-family)",
+    "note": "Qwen2.5-0.5B: different family, cross-family extrapolation -- low confidence on level; level explicitly NOT assumed monotone in scale",
+    "observed_ladder_log_eps": {
+     "160M": -0.03,
+     "410M": 0.576,
+     "70M": -0.462
+    },
+    "point_eps": 1.03,
+    "point_log_eps": 0.028
+   },
+   "k5": {
+    "ci_eps": [
+     0.53,
+     30.68
+    ],
+    "ci_log_eps": [
+     -0.641,
+     3.423
+    ],
+    "confidence": "low (cross-family)",
+    "note": "Qwen2.5-0.5B: different family, cross-family extrapolation -- low confidence on level; level explicitly NOT assumed monotone in scale",
+    "observed_ladder_log_eps": {
+     "160M": 1.059,
+     "410M": 1.71,
+     "70M": 1.405
+    },
+    "point_eps": 4.02,
+    "point_log_eps": 1.391
+   }
+  }
+ },
+ "meta": {
+  "arm_G_cells": "k in {1,5} x 2 seeds, C=0.1, eta=0.1, T=50, per target model",
+  "built_from": [
+   "results/step17_decomposition_pythia-70m.json",
+   "results/step17_decomposition_pythia-160m.json",
+   "results/step17_decomposition_pythia-410m.json"
+  ],
+  "protocol": "Arm G preregistration; forecast fixed before any Pythia-1B/Qwen cell runs; never altered post-hoc",
+  "registered_utc": "2026-08-10T09:24:37.265806+00:00"
+ },
+ "structural": {
+  "k1": {
+   "H_pred": 1.956,
+   "confirm_band": [
+    1.456,
+    2.456
+   ],
+   "note": "H = log(mu_allit/mu_final); decoder ladder gave H within ~0.3 nats of this at 70/160/410M"
+  },
+  "k5": {
+   "H_pred": 1.151,
+   "confirm_band": [
+    0.651,
+    1.651
+   ],
+   "note": "H = log(mu_allit/mu_final); decoder ladder gave H within ~0.3 nats of this at 70/160/410M"
+  }
+ }
+}

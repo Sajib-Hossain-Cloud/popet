@@ -76,6 +76,7 @@ and reproduce them.
 | Misspecified covariance | `experiments/step42_mismatched_whitening.py` | `results/step42_mismatched_whitening.json` |
 | Transformer adapters | `experiments/step20_mechanism_arm.py` | `results/step20_mechanism_arm_pythia-160m.json`, `results/projections/` |
 | Gaussianity of the held-out projections | `experiments/step39_null_calibration.py` | `results/projections/`, `results/step39_null_calibration.json` |
+| Forecasts registered before the runs (appendix) | `experiments/step17_decomposition.py` (runs), `experiments/step26_preregister_forecast.py` and `experiments/step29_preregister_gpt2.py` (registrations) | `results/prereg/` (forecast files and their SHA-256 digests), `results/step17_decomposition_*.json` (run records), `results/step28_armG_scored.json`, `results/step31_armH_scored.json`, `results/step35_armH_seeds_scored.json` (scoring) |
 | All tables and numbers | `experiments/step48_v2_tables.py` | all of the above |
 | All result figures | `experiments/plot_v2_figures.py` | `results/step48_v2_summary.json`, `results/step44_side_release_emnist_cpu.json` |
 

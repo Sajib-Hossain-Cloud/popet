@@ -1,0 +1,42 @@
+{
+ "model": "gpt2-124m (M4 run, hash c5c0570f verified)",
+ "floor_excluded": [
+  "k=1 s=1"
+ ],
+ "k1": {
+  "H_obs": 1.707,
+  "H_pred": 1.956,
+  "H_band": [
+   1.456,
+   2.456
+  ],
+  "H_in_band": true,
+  "n_seeds_H": 1,
+  "logeps_obs": 0.149,
+  "level_ci": [
+   -2.324,
+   2.379
+  ],
+  "level_in_ci": true
+ },
+ "k5": {
+  "H_obs": 1.488,
+  "H_pred": 1.151,
+  "H_band": [
+   0.651,
+   1.651
+  ],
+  "H_in_band": true,
+  "n_seeds_H": 2,
+  "logeps_obs": 0.999,
+  "level_ci": [
+   -0.641,
+   3.423
+  ],
+  "level_in_ci": true
+ },
+ "beta_fit": 0.136,
+ "H_monotone": true,
+ "STRUCTURAL_VERDICT": "FAIL (beta<0.20 clause)",
+ "LEVEL_VERDICT": "CONFIRM"
+}

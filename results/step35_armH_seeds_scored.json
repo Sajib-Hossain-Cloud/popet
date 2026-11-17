@@ -1,0 +1,11 @@
+{
+ "rule_sha": "bf5c8a9cf15027e1cf24c938955ee918c05adec416b7848c7ddaa92292e24767",
+ "n_cells": 12,
+ "H_k1": 1.86,
+ "n_k1": 4,
+ "H_k5": 1.354,
+ "n_k5": 6,
+ "beta6": 0.314,
+ "branch": "BOUNDARY",
+ "note": "post-hoc robustness check; locked 2-seed verdict (structural FAIL) unchanged"
+}

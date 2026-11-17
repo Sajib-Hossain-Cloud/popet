@@ -1,0 +1,13 @@
+{
+ "interpretation_rule": {
+  "BOUNDARY": "beta_6 outside [0.35, 0.65] -> a real small-model (124M) boundary of the participation law; reported as a finding",
+  "NOISE": "beta_6 in [0.35, 0.65] -> the 2-seed slope failure is attributed to seed noise and floor censoring; reported as a labeled post-hoc robustness note alongside the unchanged verdict",
+  "estimate": "two-point slope beta_6 from mean H at k=1 and k=5",
+  "inputs": "all non-diverged cells from seeds 0-5, floor rule applied as pre-existing (k=1 cells with H > 0.5*log(T/k)+0.5 excluded)",
+  "no_third_option": "no other framing may be introduced after seeing the data"
+ },
+ "registered_utc": "2026-08-18T07:12:52.124136+00:00",
+ "reporting": "whichever branch obtains is reported in the same subsection, explicitly labeled post-hoc, with this rule file and its sha256 cited",
+ "scope": "Arm H (GPT-2-124M) post-hoc seed extension, seeds 2-5 at k in {1,5}, same protocol, M4 device",
+ "status": "The locked 2-seed verdict (structural FAIL on the slope clause, level CONFIRM; sha ef-armH c5c0570f) is FINAL and cannot be altered by this check."
+}

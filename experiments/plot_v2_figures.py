@@ -138,38 +138,54 @@ def fig_readings():
 
 # ---------------------------------------------------------------------------
 def fig_predicted():
-    """Measured against predicted deflection, one small panel per audit
-    (small multiples: five audits cannot share one scatter legibly)."""
+    """Measured and predicted deflection of every cell as a shaded matrix:
+    rows are mechanisms, columns are audits. Each cell shows the measured
+    deflection with the prediction in parentheses; the shade follows the
+    measured value (one soft hue, light to dark), so the pattern across
+    audits is visible at a glance and the numbers stay readable."""
+    from matplotlib.colors import LinearSegmentedColormap
+    from matplotlib.patches import Rectangle
     S = summary()
     cells, runs = merged(S, ["emnist", "emnist_production"])
-    fig, axes = plt.subplots(1, 5, figsize=(7.1, 1.75), sharex=True, sharey=True)
+    T = S["emnist"]["meta"]["T"]
+    cert = S["emnist"]["meta"]["mu_cert"]
+    order = ["fedavg", "tree", "sqrtmf", "bandmf_opt", "blt_opt", "bandmf", "blt"]
+    rows = []                                   # (label, cell or None for a group header)
+    for k in sorted({c["k"] for c in cells}):
+        rows.append((f"{k} of {T} rounds" if k != T else "every round", None))
+        for m in order:
+            c = next((c for c in cells if c["mechanism"] == m and c["k"] == k), None)
+            if c is not None:
+                rows.append((SHORT[m], c))
+    cols = [("final", "final"), ("max", "max"), ("sum", "sum"),
+            ("single", "single"), ("whitened", "whitened")]   # as in the tables
+    ramp = LinearSegmentedColormap.from_list("soft", ["#f6f8f7", "#cfe6e0", "#93c9bd"])
+    soft_ink, quiet = "#17302c", "#5f7470"
+    n = len(rows)
+    fig, ax = plt.subplots(figsize=(3.33, 0.15 * n + 0.25))
     table = []
-    for ax, (a, col, lab) in zip(axes, AUDIT5):
-        ax.plot([0, 3.1], [0, 3.1], color=GRID, linewidth=1.0, zorder=1)
-        for c in cells:
-            sm = per_seed(runs, c["mechanism"], c["k"], f"mu_{a}")
-            x = c["pred"][a]
-            ax.plot([x, x], [min(sm), max(sm)], color=col, linewidth=0.8, zorder=2)
-            every = c["k"] == S["emnist"]["meta"]["T"]
-            ax.scatter(x, c[f"mu_{a}"], s=16, marker="s" if every else "o",
-                       facecolor="white" if every else col, edgecolor=col,
-                       linewidth=0.9, zorder=3)
-            table.append((c["mechanism"], c["k"], a, x, c[f"mu_{a}"]))
-        ax.set_title(lab, loc="left", pad=3, fontsize=7)
-        ax.set_xlim(-0.15, 3.1)
-        ax.set_ylim(-0.15, 3.1)
-        ax.set_aspect("equal")
-        ax.set_xticks([0, 1, 2, 3])
-        ax.set_yticks([0, 1, 2, 3])
-        ax.grid(True, axis="both")
-    axes[0].set_ylabel(r"measured $\hat\mu$")
-    axes[2].set_xlabel("deflection predicted from the strategy matrix, before training")
-    h = [plt.Line2D([], [], marker="o", color=INK2, linestyle="", markersize=3.5),
-         plt.Line2D([], [], marker="s", color=INK2, markerfacecolor="white",
-                    linestyle="", markersize=3.5)]
-    axes[0].legend(h, ["$k=10$", "every round"], loc="upper left", handletextpad=0.1,
-                   borderaxespad=0.1, fontsize=6.5)
-    fig.subplots_adjust(wspace=0.08)
+    for r, (lab, c) in enumerate(rows):
+        y = n - 1 - r
+        if c is None:                           # group header
+            ax.text(-0.62, y - 0.05, lab, ha="right", va="center", fontsize=6.5,
+                    fontweight="bold", color=soft_ink)
+            continue
+        ax.text(-0.62, y, lab, ha="right", va="center", fontsize=6.5, color=quiet)
+        for x, (a, _) in enumerate(cols):
+            mu, pred = c[f"mu_{a}"], c["pred"][a]
+            shade = ramp(min(max(mu / cert, 0.0), 1.0))
+            ax.add_patch(Rectangle((x - 0.47, y - 0.42), 0.94, 0.84, facecolor=shade,
+                                   edgecolor="none"))
+            ax.text(x - 0.03, y, f"{mu:.2f}".replace("-", "−"), ha="right",
+                    va="center", fontsize=6.5, color=soft_ink)
+            ax.text(x + 0.03, y, f"({pred:.2f})", ha="left", va="center",
+                    fontsize=5.6, color=quiet)
+            table.append((c["mechanism"], c["k"], a, pred, mu))
+    for x, (_, lab) in enumerate(cols):
+        ax.text(x, n - 0.35, lab, ha="center", va="bottom", fontsize=6.5, color=soft_ink)
+    ax.set_xlim(-0.5, len(cols) - 0.5)
+    ax.set_ylim(-0.5, n - 0.3)
+    ax.axis("off")
     fig.savefig(os.path.join(OUT, "v2_predicted.pdf"))
     plt.close(fig)
     return table

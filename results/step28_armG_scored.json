@@ -1,0 +1,40 @@
+{
+ "model": "qwen2.5-0.5b (cross-family, held out, hash-locked ef3d28)",
+ "T": 50,
+ "cells": {
+  "k1": {
+   "H_obs_mean": 2.069,
+   "H_pred": 1.956,
+   "H_band": [
+    1.456,
+    2.456
+   ],
+   "H_in_band": true,
+   "logeps_obs_mean": 0.061,
+   "logeps_ci": [
+    -2.324,
+    2.379
+   ],
+   "level_in_ci": true
+  },
+  "k5": {
+   "H_obs_mean": 1.11,
+   "H_pred": 1.151,
+   "H_band": [
+    0.651,
+    1.651
+   ],
+   "H_in_band": true,
+   "logeps_obs_mean": 1.532,
+   "logeps_ci": [
+    -0.641,
+    3.423
+   ],
+   "level_in_ci": true
+  }
+ },
+ "beta_fit": 0.596,
+ "beta_in_confirm_range": true,
+ "STRUCTURAL_VERDICT": "CONFIRM",
+ "LEVEL_VERDICT": "CONFIRM"
+}
